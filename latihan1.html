@@ -15,18 +15,28 @@
 </head>
 <body>
 
-    <header>
-        <img src="image/logo.png" alt="" width="80">
-        <h1>What is VueJS</h1>
-        <p>The progresive JavaScript Framework</p>
-    </header>
-
-    <footer>
-        <p>copyright_Hasan@2022</p>
-    </footer>
+    <div id="app">
+        <header>
+            <img src="img/logo.png" alt="" width="80">
+            <h1>What is VueJS</h1>
+            <p>The progresive JavaScript Framework</p>
+        </header>
+        <footer>
+            <p>copyright_Hasan@2022</p>
+        </footer>
+    </div>
     
-    <script type="module">
-        import Vue from 'https://cdn.jsdelivr.net/npm/vue@2.6.0/dist/vue.esm.browser.js'
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0/dist/vue.js"></script>
+    <script>
+        const member = {
+            //bisa diisi tipe data
+            name: 'M. Hasan',
+            message: "Hello kawan!"
+        }
+        const vm = new Vue({
+            el: '#app',
+            data: member
+        })
     </script>
 </body>
 </html>
