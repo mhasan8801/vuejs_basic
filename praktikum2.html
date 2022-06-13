@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VueBasic</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand&display=swap">
+    <style>
+        body{
+            margin: 5%;
+            font-family: 'Quicksand', sans-serif;
+        }
+        .active{
+            background: salmon;
+            border: 0;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="app">
+        <header>
+            <img src="img/logo.png" alt="" width="100">
+            
+            <p>The progresive JavaScript Framework</p>
+        </header>
+
+        <main>
+            <h3>Tambah Kelas</h3>
+            <p><input type="text" placeholder="Nama Kelas" v-on:keyup.enter="submit" v-model="kelasbaru"></p>
+            <hr>
+            <h3>Daftar Kelas ({{ kelas.length }})</h3>
+            <template v-if="kelas.length > 1">
+               <ul>
+                <li v-for="(item, index) of kelas">{{ index+1 }}. {{ item }}</li>
+            </ul> 
+            </template>         
+            <li v-else>Kelas belum tersedia</li>
+        </main>
+
+        <footer>
+            <p>copyright_Hasan@2022</p>
+        </footer>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0/dist/vue.js"></script>
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                kelas: ['JavaScript','Dart'],
+                kelasbaru: ""
+            },
+            methods: {
+                submit: function(event) {
+                    let text = event.target.value
+                    this.kelas.unshift(this.kelasbaru)
+                    this.kelasbaru = ""
+                }
+            },
+            computed: {
+            }
+        })
+    </script>
+</body>
+</html>

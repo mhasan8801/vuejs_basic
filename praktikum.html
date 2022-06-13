@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VueBasic</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand&display=swap">
+    <style>
+        body{
+            margin: 5%;
+            font-family: 'Quicksand', sans-serif;
+        }
+        .active{
+            background: salmon;
+            border: 0;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="app">
+        <header>
+            <img src="img/logo.png" alt="" width="80">
+            <h1>{{ name }}</h1>
+            <p><input type="text" v-model="name"></p>
+
+            <h3>Form Submit</h3>
+            <p><input type="text" placeholder="Nama Kelas" v-on:keyup.enter="submit" v-model="kelasbaru"></p>
+
+            <h3>Daftar Kelas ({{ kelas.length }})</h3>
+            <template v-if="kelas.length > 1">
+               <ul>
+                <li v-for="(item, index) of kelas">{{ index+1 }}. {{ item }}</li>
+            </ul> 
+            </template>
+            
+            <li v-else>Kelas belum tersedia</li>
+
+            <h3>Perulangan 1-5</h3>
+            <ul>
+                <li v-for="x in 5">{{ x }}</li>
+            </ul>
+            <h3>Mencari bilangan genap: {{ numbers }}</h3>
+            <ul>
+                <li v-for="x in cariGenap (numbers)">{{ x }}</li>
+            </ul>
+            <p>{{ kelas }}</p>
+            <div>
+                <label><input type="checkbox" value="Java" v-model="kelas">Java</label>
+                <label><input type="checkbox" value="Kotlin" v-model="kelas">Kotlin</label>
+                <label><input type="checkbox" value="Flutter" v-model="kelas">Flutter</label>
+            </div>
+            <h1 v-once>{{ getName() }}</h1>
+            <h1>{{ 10+11 + ' tahun' }}</h1>
+            <h1>{{ isactive? 'Mahasiswa':'Programmer' }}</h1>
+            <h2>{{ namaLengkap }}</h2>
+            <img v-bind:src="gambar" width="500">
+            <p><button @click="handleClick1">Tambah</button><button v-on:click="handleClick2">Kurang</button></p>
+            <h2>{{ bilangan }}</h2>
+            <p>Bilangan ini adalah bilangan {{ infoBilangan }}</p>
+            <h4 v-html="link"></h4>
+            <br>
+            <p>The progresive JavaScript Framework</p>
+
+            <a v-bind:class="{active: menu === 'home'}" href="#" v-on:click.prevent="gantiMenu('home')">Home</a>
+            <a v-bind:class="{active: menu === 'about'}" href="#" v-on:click.prevent="gantiMenu('about')">About</a>
+            <a v-bind:class="{active: menu === 'blog'}" href="#" v-on:click.prevent="gantiMenu('blog')">Blog</a>
+
+        </header>
+        <footer>
+            <p>copyright_Hasan@2022</p>
+        </footer>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0/dist/vue.js"></script>
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                name: 'M. Hasan',
+                message: "Hello kawan!",
+                isactive: true,
+                qty: 5,
+                namaDepan: 'Teknik ',
+                namaBelakang: 'Informatika',
+                bilangan: 3,
+                link: '<a href="">mhasan.com</a>',
+                gambar: 'img/foto.JPG',
+                menu: 'home',
+                kelas: ['JavaScript','Dart'],
+                kelasbaru: "",
+                numbers: [1,2,3,4,5]
+            },
+            methods: {
+                getName: function() {
+                    return 'Hello, ' +this.name
+                },
+                editName: function(changeName) {
+                    this.name = changeName
+                },
+                handleClick1: function() {
+                    this.bilangan++
+                    this.gambar = 'img/foto.JPG'
+                },
+                handleClick2: function() {
+                    this.bilangan--
+                    this.gambar = 'img/foto2.JPG'
+                },
+                cariGenap: (nomer) => {
+                    return nomer.filter(angka => {
+                        return angka % 2 == 0
+                    })
+                },
+                gantiMenu: function(data) {
+                    this.menu = data
+                },
+                submit: function(event) {
+                    let text = event.target.value
+                    this.kelas.unshift(this.kelasbaru)
+                    this.kelasbaru = ""
+                }
+            },
+            computed: {
+                totalBayar: function() {
+                    return this.qty * 10000
+                },
+                namaLengkap: function() {
+                    return this.namaDepan + this.namaBelakang
+                },
+                infoBilangan: function() {
+                    return this.bilangan%2 === 0 ? 'Genap' : 'Ganjil'
+                }
+            }
+        })
+    </script>
+</body>
+</html>
